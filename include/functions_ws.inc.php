@@ -9,7 +9,10 @@ function moberley_maintws_deny() {
 
 /* API function actions adapted from Piwigo .\admin\maintenance_actions.php 'actions' section (switch block) as there
  * generally do not seem to be single functions that encapsulate the entire process of each action on the maintenance
- * page that can be called from here.
+ * page that can be called from here. Skipping empty_lounge as that is already available as pwg.images.emptyLounge.
+ * 
+ * Copied as of commit ad88ed9.
+ * https://github.com/Piwigo/Piwigo/commit/ad88ed9d5f2d7ed57eb208e59ecd150a76dbe6d5
  */
 
 function moberley_maintws_lock_gallery($params, &$service)
