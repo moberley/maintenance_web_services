@@ -213,19 +213,6 @@ function moberley_maintws_add_methods($arr)
   );
 
   $service->addMethod(
-    'maintenance_ws.purge.derivativesAll',
-    'moberley_maintws_purge_derivatives',
-    array(),
-    l10n('Delete multiple size images').' ('.l10n('All').')',
-    MOBERLEY_MAINTWS_WSPATH,
-    array(
-      'hidden' => false,
-      'admin_only' => true,
-      'post_only' => false,
-    )
-  );
-
-  $service->addMethod(
     'maintenance_ws.purge.derivatives',
     'moberley_maintws_purge_derivatives',
     array(
