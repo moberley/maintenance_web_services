@@ -9,10 +9,7 @@ function moberley_maintws_deny() {
 
 /* API function actions adapted from Piwigo .\admin\maintenance_actions.php 'actions' section (switch block) as there
  * generally do not seem to be single functions that encapsulate the entire process of each action on the maintenance
- * page that can be called from here. Skipping empty_lounge as that is already available as pwg.images.emptyLounge.
- * 
- * Copied as of commit ad88ed9.
- * https://github.com/Piwigo/Piwigo/commit/ad88ed9d5f2d7ed57eb208e59ecd150a76dbe6d5
+ * page that can be called from here.
  */
 
 function moberley_maintws_lock_gallery($params, &$service)
@@ -227,10 +224,13 @@ function moberley_maintws_purge_derivatives($params, &$service)
   {
     clear_derivative_cache();
   } else {
-    $valid_types = array(
-      'square', 'thumb', '2small', 'xsmall', 'small', 'medium', 
-      'large', 'xlarge', 'xxlarge', '3xlarge', '4xlarge', 'custom'
-    );
+    $valid_types = array_values(moberley_maintws_get_derivative_types());
+    
+    if (count(array_diff($params['types'], $valid_types)) > 0)
+    {
+      return new PwgError(WS_ERR_INVALID_PARAM, l10n('ERROR').' : '.l10n('Parameters'));
+    }
+    
     foreach ($params['types'] as $type_to_clear)
     {
       if (in_array($type_to_clear, $valid_types)) { clear_derivative_cache($type_to_clear); }

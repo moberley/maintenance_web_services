@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Maintenance Web Services
-Version: 1.0
+Version: 1.1
 Description: Exposes maintenance actions to the web service API as GET endpoints.
 Plugin URI: http://piwigo.org
 Author: moberley
@@ -16,6 +16,8 @@ define('MOBERLEY_MAINTWS_PATH', PHPWG_PLUGINS_PATH.basename(dirname(__FILE__)).'
 define('MOBERLEY_MAINTWS_WSPATH', MOBERLEY_MAINTWS_PATH.'include/functions_ws.inc.php');
 
 include_once(MOBERLEY_MAINTWS_PATH.'include/functions.inc.php');
+
+define('MOBERLEY_MAINTWS_TYPELIST', implode(", ", array_values(moberley_maintws_get_derivative_types())));
 
 add_event_handler('init', 'moberley_maintws_plugin_init');
 function moberley_maintws_plugin_init()
@@ -230,7 +232,7 @@ function moberley_maintws_add_methods($arr)
       'types' => array(
         'default' => null,
         'flags' => WS_PARAM_FORCE_ARRAY,
-        'info' => 'square, thumb, 2small, xsmall, small, medium, large, xlarge, xxlarge, 3xlarge, 4xlarge, custom'
+        'info' => MOBERLEY_MAINTWS_TYPELIST
       ),
     ),
     l10n('Delete multiple size images'),
